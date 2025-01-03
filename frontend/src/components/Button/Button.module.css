@@ -1,0 +1,26 @@
+.button {
+  display: block;
+  padding: 10px 17px;
+  border-radius: 12px;
+  border: unset;
+  outline: none!important;
+}
+
+.primary {
+  background-color: var(--control-primary);
+}
+.primary:not(.disabled):hover {
+  background-color: var(--control-primary-hover);
+}
+.primary.disabled {
+  background-color: var(--control-primary-disabled);
+}
+.secondary {
+  background-color: var(--control-secondary);
+}
+.secondary:not(.disabled):hover {
+  background-color: var(--control-secondary-hover);
+}
+.secondary.disabled {
+  background-color: var(--control-secondary-disabled);
+}
