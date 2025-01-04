@@ -7,11 +7,8 @@ it's the Java part of ATLAS project
 Make sure you have Java and Maven installed.
 
 ```sh
-$ git clone https://github.com/StickyDice/aurora.git
-$ cd aurora
 $ mvn install
-$ mvn package
-$ java -jar target/aurora-backend-app-1.0.jar
+$ java -jar target/atlas-0.0.1.jar
 ```
 
 To startup with [Heroku CLI](https://cli.heroku.com/) change last command to: 
