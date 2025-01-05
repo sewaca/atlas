@@ -53,6 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+            // TODO: make logs and don't get error message to client
             response.getWriter().write(e.getMessage());
             return;
         }
