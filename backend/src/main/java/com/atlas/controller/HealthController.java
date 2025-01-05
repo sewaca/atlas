@@ -12,8 +12,4 @@ public class HealthController {
         return "ok";
     }
     
-    @RequestMapping("/check2")
-    public String checkHealth2(){
-        return "ok";
-    }
 }
