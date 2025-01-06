@@ -6,15 +6,19 @@ it's the Java part of ATLAS project
 
 Make sure you have Java and Maven installed.
 
-```sh
-$ mvn install
-$ java -jar target/atlas-0.0.1.jar
-```
+1. Duplicate .env.example -> .env and fill it up with your values
+2. Put in terminal `./localstart.sh`
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
 ## Docker runtime: 
+
+### Start service:
 ```sh 
-$ docker build . -t atlas-backend-app:0.0.0
-$ docker run -dit -p 5000:5000 atlas-backend-app:0.0.0
+$ docker-compose up --build -d
+```
+
+### Stop service:
+```sh
+$ docker-compose down
 ```

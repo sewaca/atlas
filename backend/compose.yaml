@@ -1,0 +1,38 @@
+version: "3.7"
+services: 
+  database:
+    image: "mysql:8.0"
+    restart: always
+    ports:
+      - 33061:3306
+    environment:
+      - MYSQL_DATABASE=atlas-db
+      - MYSQL_USER=javauser
+      - MYSQL_PASSWORD=REDACTED_PROD_PASWORD
+      - MYSQL_ROOT_PASSWORD=REDACTED_PROD_PASWORD
+    volumes:
+      - ./src/main/resources/init.sql:/data/application/init.sql
+      - ./.mysql:/var/lib/mysql
+    command: --init-file /data/application/init.sql
+    networks:
+      - default
+  java: 
+    build: .
+    restart: always
+    ports: 
+      - 5000:5000
+    depends_on:
+      - database
+    environment:
+      - MYSQL_HOST=database:3306
+      - MYSQL_DATABASE_NAME=atlas-db
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=REDACTED_PROD_PASWORD
+      - JWT_KEY=signingkeyshouldbesettedupforaproductionenvironment
+      - HMAC_SALT=REDACTED 
+    networks: 
+      - default
+    command: sh -c './wait-for database:3306 -- npm start'
+networks:
+  default: 
+    name: general-network
