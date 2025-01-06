@@ -4,8 +4,10 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
@@ -22,15 +24,18 @@ import jakarta.annotation.PostConstruct;
 @Service
 @PropertySource("classpath:application.properties")
 public class JwtService {
-    // FIXME: can't use @Value here. Getting null instead of values :(
-    // @Value("${jwt.signing.key}")
-    private final String jwtSigningKey = "signingkeyshouldbesettedupforaproductionenvironment";
+    @Value("${jwt.signing.key}")
+    private String jwtSigningKey;
 
-    // @Value("${jwt.key.expiration}")
-    private final Long jwtEpxirationPeriod = (long) 604800000;
+    @Value("${jwt.key.expiration}")
+    private Long jwtEpxirationPeriod;
+
+    @Autowired
+    private UserService userService;
 
     @PostConstruct
     public void postConstruct () {
+        // TODO: FINDEV-LOG: add general log
         System.out.println("[test] jwtSigningKey is "+jwtSigningKey);
         System.out.println("[test] jwtEpxirationPeriod is "+jwtEpxirationPeriod);
     }
@@ -64,12 +69,13 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration).before(new Date());
     }
 
-    public String getUsername(String token) {
-        if (!validate(token)) return "";
-        return extractClaim(token, Claims::getSubject);
-    }
-
     public boolean validate(String token) {
         return !isTokenExpired(token) && !extractClaim(token, Claims::getSubject).isEmpty();
     }    
+
+    public User extractUser(String token) {
+        String username = extractClaim(token, Claims::getSubject);
+
+        return userService.findByUsername(username);
+    }
 } 

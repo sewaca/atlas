@@ -1,4 +1,4 @@
-package com.atlas.model;
+package com.atlas.constant;
 
 public interface Headers {
     String AUTHORIZATION = "Authorization";

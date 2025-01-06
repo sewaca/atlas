@@ -12,12 +12,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.atlas.model.Headers;
+import com.atlas.constant.Headers;
+import com.atlas.model.User;
 import com.atlas.service.JwtService;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -32,7 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        // validate auth only on /api/ requests
+        // validate auth only on /api/ requests, but not on /api/auth
         if (!request.getServletPath().startsWith("/api/") || request.getServletPath().startsWith("/api/auth")) {
             filterChain.doFilter(request, response);
             return;
@@ -46,8 +44,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             String jwt = authHeader.substring(Headers.BEARER.length());
-            String username = jwtService.getUsername(jwt);
-            if (username.isEmpty()) {
+            User user = jwtService.extractUser(jwt);
+            if (user == null) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
@@ -57,8 +55,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             response.getWriter().write(e.getMessage());
             return;
         }
-
-        // TODO: check if user really exists
         
         filterChain.doFilter(request, response);
     }
