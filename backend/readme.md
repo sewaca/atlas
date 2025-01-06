@@ -13,9 +13,13 @@ Your app should now be running on [localhost:5000](http://localhost:5000/).
 
 ## Docker runtime: 
 
+### Prerequisites: 
+
+- 
+
 ### Start service:
 ```sh 
-$ docker-compose up --build -d
+$ docker-compose up --build -d 
 ```
 
 ### Stop service:
