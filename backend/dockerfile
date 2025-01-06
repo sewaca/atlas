@@ -1,0 +1,12 @@
+FROM openjdk:17-jdk-slim
+
+ADD . /backend
+WORKDIR /backend
+RUN chmod +x ./mvnw
+# clean up crlf endings:
+RUN sed -i 's/\r$//' mvnw
+RUN ./mvnw package -DskipTests
+
+EXPOSE 5000
+
+ENTRYPOINT ["java","-jar","target/atlas-0.0.1.jar"]

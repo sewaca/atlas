@@ -4,7 +4,6 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class JwtService {
 
     @PostConstruct
     public void postConstruct () {
-        // TODO: FINDEV-LOG: add general log
+        // TODO: centralize logs
         System.out.println("[test] jwtSigningKey is "+jwtSigningKey);
         System.out.println("[test] jwtEpxirationPeriod is "+jwtEpxirationPeriod);
     }

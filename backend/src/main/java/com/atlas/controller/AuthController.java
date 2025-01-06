@@ -1,6 +1,7 @@
 package com.atlas.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +31,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @RequestMapping(path = "/login", method=org.springframework.web.bind.annotation.RequestMethod.POST)
+    @PostMapping("/login")
     public String login(@RequestBody SignInRequest request, HttpServletResponse response){
         if (!authService.authenticate(request.getUsername(), request.getPassword())) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -40,7 +41,7 @@ public class AuthController {
         return Headers.BEARER+jwtService.issueToken(userService.findByUsername(request.getUsername()));
     }
 
-    @RequestMapping(path = "/register", method=org.springframework.web.bind.annotation.RequestMethod.POST)
+    @PostMapping("/register")
     public String register(@RequestBody SignUpRequest request, HttpServletResponse response){
         User created = authService.createUser(request.getUsername(), request.getPassword());
 
