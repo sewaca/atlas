@@ -25,6 +25,7 @@ export class BackendService {
         "Content-Type": "application/json",
       } as HeadersInit,
     }).then((res) => (res.ok ? res.json() : res.status));
+    // TODO: Добавить общий обработчик для 401 ошибок
   }
 
   public async login({ username, password }: AuthProps) {

@@ -1,6 +1,7 @@
 import { BackendService } from "~/services/BackendService";
 import { PostCard } from "~/components/PostCard/PostCard";
 import { Spacer } from "~/components/Spacer/Spacer";
+import { MDXRemote } from "next-mdx-remote/rsc";
 
 export default async function Page({
   params,
@@ -19,10 +20,10 @@ export default async function Page({
     <>
       <PostCard key={data.id} data={data} />
       <Spacer size={10} />
-      <hr style={{width: "40%"}} />
+      <hr style={{ width: "40%" }} />
       <Spacer size={10} />
       {/* TODO: сделать нормальное отображение body */}
-      <p>{data.body}</p>
+      <MDXRemote source={data.body} />
     </>
   );
 }
