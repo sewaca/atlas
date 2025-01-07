@@ -2,23 +2,21 @@
 
 import styles from "./Button.module.css";
 import { cx } from "../../utils/cx";
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 
 type Props = {
-  onClick?: () => void;
   variant?: "primary" | "secondary";
   disabled?: boolean;
   children?: ReactNode;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 export const Button = (
-  ({ onClick, variant = "primary", disabled, children }: Props) => {
+  ({ variant = "primary", disabled, children, className, ...rest }: Props) => {
     return (
       <button
-        className={cx(styles.button, styles[variant], {
+        {...rest}
+        className={cx(styles.button, className, styles[variant], {
           [styles.disabled]: disabled,
         })}
-        onClick={() => onClick?.()}
-        disabled={disabled}
       >
         {children}
       </button>

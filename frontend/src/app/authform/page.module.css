@@ -1,0 +1,31 @@
+
+.page {
+    padding: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.input{
+    min-width: max(35vw, 250px);
+}
+
+.button {
+    min-width: 260px;
+}
+
+.registrationToggler {
+    text-underline-offset: 4px;
+    text-decoration: underline dashed;
+}
+.registrationToggler:hover{
+    text-decoration: underline dashed #bbbbbb;
+}   

@@ -1,23 +1,31 @@
-import { $, component$, useSignal } from "@builder.io/qwik";
+"use client";
+
+import { InputHTMLAttributes, useState } from "react";
 import styles from "./Input.module.css";
+import { cx } from "~/utils/cx";
 
 type Props = {
   label?: string;
-  name?: string;
   onChange?: (value: string) => void;
-};
-export const Input = component$(({ label, name, onChange }: Props) => {
-  const value = useSignal("");
+} & Omit<InputHTMLAttributes<HTMLInputElement>, "onChange">;
+export const Input = ({ label, onChange, className, ...rest }: Props) => {
 
-  const handleChange = $((_: InputEvent, element: HTMLInputElement) => {
-    value.value = element.value;
-    onChange?.(element.value);
-  });
+  const [value, setValue] = useState("");
+
+  const handleChange = (newValue: string) => {
+    setValue(newValue);
+    onChange?.(newValue);
+  };
 
   return (
-    <div class={styles.inputBase}> 
-        {label ? <label class={styles.label}>{label}</label> : null}
-      <input class={styles.input} onInput$={handleChange} name={name} />
+    <div className={styles.inputBase}>
+      {label ? <label className={styles.label}>{label}</label> : null}
+      <input
+        {...rest}
+        className={cx(styles.input, className)}
+        onChange={(e) => handleChange(e.currentTarget.value)}
+        value={value}
+      />
     </div>
   );
-});
+};
