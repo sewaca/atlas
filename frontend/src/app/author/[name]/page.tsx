@@ -12,18 +12,14 @@ export default async function Page({
   const backend = new BackendService();
   const data = await backend.getPostsByAuthor({ author });
 
-  if (typeof data !== "object") {
-    return data;
-  }
-
   return (
     <>
       <h1>All posts of {author}</h1>
       <Spacer size={24} />
       <div className={styles.posts}>
-        {data.map((post) => (
-          <PostCard key={post.id} data={post} />
-        ))}
+        {typeof data !== "object"
+          ? data
+          : data.map((post) => <PostCard key={post.id} data={post} />)}
       </div>
     </>
   );
