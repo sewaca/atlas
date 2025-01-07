@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.atlas.model.Post;
 import com.atlas.service.PostService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.Min;
 
 @RestController
 @RequestMapping("/api/post")
@@ -20,6 +22,11 @@ public class PostsController {
 
     @Autowired
     private PostService postService;
+
+    @GetMapping("/get")
+    public List<Post> getSeveral (@RequestParam(value="page", defaultValue="0") @Min(0) int page) {
+        return postService.getPage(page);
+    }
 
     @GetMapping("/id/{id}")
     public Post byId (@PathVariable int id, HttpServletResponse response) {

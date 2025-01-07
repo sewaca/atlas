@@ -3,6 +3,7 @@ package com.atlas.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.atlas.model.Post;
@@ -12,6 +13,7 @@ import com.atlas.repository.PostRepository;
 public class PostService {
     @Autowired
     private PostRepository postRepository;
+    private final int perpage = 12;
 
     public Post findById(int id) {
         if (!postRepository.existsById(id)) return null;
@@ -30,5 +32,9 @@ public class PostService {
         if (!postRepository.existsById(id)) return false;
         postRepository.deleteById(id);
         return true;
+    }
+
+    public List<Post> getPage(int page) {
+        return postRepository.findAll(PageRequest.of(page, perpage)).getContent();
     }
 }

@@ -1,24 +1,26 @@
-import { component$, Slot } from "@builder.io/qwik";
+"use client";
 
 import styles from "./Button.module.css";
 import { cx } from "../../utils/cx";
+import { ReactNode } from "react";
 
 type Props = {
   onClick?: () => void;
   variant?: "primary" | "secondary";
   disabled?: boolean;
+  children?: ReactNode;
 };
-export const Button = component$(
-  ({ onClick, variant = "primary", disabled }: Props) => {
+export const Button = (
+  ({ onClick, variant = "primary", disabled, children }: Props) => {
     return (
       <button
-        class={cx(styles.button, styles[variant], {
+        className={cx(styles.button, styles[variant], {
           [styles.disabled]: disabled,
         })}
-        onClick$={() => onClick?.()}
+        onClick={() => onClick?.()}
         disabled={disabled}
       >
-        <Slot />
+        {children}
       </button>
     );
   }

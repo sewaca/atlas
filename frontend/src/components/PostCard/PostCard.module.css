@@ -1,0 +1,13 @@
+.item{display:flex;flex-direction:column;min-width:260px; position:relative;}
+.item .photoBG{width:100%;height:335px;background-color:#191B1C;position:relative;overflow:hidden; transition: .3s;}
+.item .photoBG img{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%); width: 100%;height: 100%;object-fit: cover;}
+.item .title{color:#FFF;margin:18px 0 6px}
+.item .price{color:#D0D0D0; z-index: 2;}
+.itemlink{
+  position: absolute;
+  top:0;bottom: 0;right:0;left: 0;
+  z-index: 1;
+}
+.item:hover .photoBG{
+  transform: scale(1.05);
+}

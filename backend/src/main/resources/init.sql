@@ -42,7 +42,8 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,'test','#just a test','https://example.com/400x400','admin'),(2,'test2','#just a test2','https://example.com/400x400','admin');
+INSERT INTO `posts` VALUES ('1', 'test', '#just a test', 'https://avatars.mds.yandex.net/i?id=c4281a01193d098fd7661ce9a9a36762_l-4968891-images-thumbs&n=13', 'admin'), ('2', 'test2', '#just a test2', 'https://pushinka.top/uploads/posts/2023-04/1681581680_pushinka-top-p-void-spirit-avatarka-krasivo-40.jpg', 'admin'), ('3', 'kotik ^=^', 'kotik ^=^', 'https://i.pinimg.com/originals/71/57/62/71576257fc64308917607bad44b3d7af.jpg', 'simpleuser');
+
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +70,8 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','ADMIN','admin'),(2,'simpleuser','user','09fc1f37619800e55c6f7b4b5a96228edbf385b3399f834f43df428cd55b1b14');
+INSERT INTO `users` VALUES ('1', 'admin', 'ADMIN', 'e89cd9843e013e4449a41d25724cc6ea2423b08937fe593da0091f2db8e6d06e'), ('2', 'simpleuser', 'user', 'f35accd88e4e6e0fef4438aa83f6b525a5e389523b07d437870d71046893d72b');
+
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
