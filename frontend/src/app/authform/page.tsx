@@ -15,6 +15,7 @@ export default function Page() {
   });
 
   const handleSubmit = async () => {
+    // TODO: сделать обработку и отправку запроса
     console.log(userinput.current);
   };
 
