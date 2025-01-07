@@ -1,6 +1,7 @@
 import { BackendService } from "~/services/BackendService";
 import styles from "./page.module.css";
 import { PostCard } from "~/components/PostCard/PostCard";
+import { Spacer } from "~/components/Spacer/Spacer";
 
 export default async function Page({
   params,
@@ -16,13 +17,14 @@ export default async function Page({
   }
 
   return (
-    <div className={styles.page}>
+    <>
       <h1>All posts of {author}</h1>
+      <Spacer size={24} />
       <div className={styles.posts}>
         {data.map((post) => (
           <PostCard key={post.id} data={post} />
         ))}
       </div>
-    </div>
+    </>
   );
 }

@@ -28,10 +28,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <header className={styles.header}>
-          <Link href="/">На главную</Link>
-          <Link href="/authform">Войти / Зарегистрироваться</Link>
+          <Link href="/">Main page</Link>
+          <Link href="/auth">Sign In / Sign Up</Link>
         </header>
-        {children}
+        <div className={styles.page}>{children}</div>
       </body>
     </html>
   );
