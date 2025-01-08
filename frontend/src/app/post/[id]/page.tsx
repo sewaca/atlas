@@ -2,7 +2,7 @@ import { BackendService } from "~/services/BackendService";
 import { PostCard } from "~/components/PostCard/PostCard";
 import { Spacer } from "~/components/Spacer/Spacer";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { AuthorizationManager, Role } from "~/utils/AuthorizationManager/index";
+import { AuthorizationManager, Role } from "~/utils/AuthorizationManager";
 import { Button } from "~/components/Button/Button";
 import Link from "next/link";
 import styles from "./page.module.css";

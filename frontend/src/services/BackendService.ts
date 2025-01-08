@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { AuthorizationManager } from "~/utils/AuthorizationManager/index";
+import { AuthorizationManager } from "~/utils/AuthorizationManager";
 
 type AuthProps = { username: string; password: string };
 
