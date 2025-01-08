@@ -11,5 +11,5 @@ export const DeletePostButton = ({id}: {id: number}) => {
     if (res) window.location.href = "/";
   }
 
-  return <Button onClick={handleClick}>Delete</Button>
+  return <Button variant="secondary" onClick={handleClick}>Delete</Button>
 }

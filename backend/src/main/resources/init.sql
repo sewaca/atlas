@@ -70,7 +70,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1', 'admin', 'admin', 'e89cd9843e013e4449a41d25724cc6ea2423b08937fe593da0091f2db8e6d06e'), ('2', 'simpleuser', 'user', 'f35accd88e4e6e0fef4438aa83f6b525a5e389523b07d437870d71046893d72b');
+INSERT INTO `users` VALUES ('1', 'admin', 'admin', 'e89cd9843e013e4449a41d25724cc6ea2423b08937fe593da0091f2db8e6d06e'), ('2', 'simpleuser', 'user', 'f35accd88e4e6e0fef4438aa83f6b525a5e389523b07d437870d71046893d72b'), ('3', 'manager', 'manager', '65c160f2edc54d5d654caf3fffb5c89eee5f6e3ea1af29602198bb0660b0d2d2');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;

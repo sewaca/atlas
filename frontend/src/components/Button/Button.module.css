@@ -21,7 +21,6 @@
 
 .secondary {
   border-color: var(--gray-alpha-200);
-  min-width: 180px;
 }
 .secondary:hover {
   background: var(--button-secondary-hover);
