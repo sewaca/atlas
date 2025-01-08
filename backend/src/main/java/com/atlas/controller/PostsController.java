@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.atlas.constant.Headers;
 import com.atlas.model.Post;
 import com.atlas.service.PostService;
+import com.atlas.types.CreatePostRequest;
 import com.atlas.types.PostEditRequest;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -75,5 +76,21 @@ public class PostsController {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
         return res;
+    }
+
+    @PostMapping("/create")
+    public boolean create(
+        @RequestHeader("Authorization") String token, 
+        @RequestBody CreatePostRequest request, 
+        HttpServletResponse response
+    ) {
+        String jwt = token.substring(Headers.BEARER.length());
+        Post created = postService.buildPost(request.getTitle(), request.getImage(), request.getBody(), jwt);
+        if (created == null) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return false;
+        }
+        postService.create(created);
+        return true;
     }
 }

@@ -28,7 +28,7 @@ CREATE TABLE `posts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(150) NOT NULL,
   `body` varchar(10000) NOT NULL,
-  `image` varchar(150) NOT NULL,
+  `image` longtext NOT NULL,
   `author` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `postauthor_idx` (`author`),

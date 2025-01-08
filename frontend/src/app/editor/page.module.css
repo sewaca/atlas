@@ -1,0 +1,8 @@
+.input {min-width: max(35vw, 250px);}
+.label {
+    max-width: max(35vw, 250px);
+    margin: auto;
+}
+.fileinput{
+    cursor: pointer;
+}

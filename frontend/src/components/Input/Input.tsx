@@ -7,10 +7,11 @@ import { cx } from "~/utils/cx";
 type Props = {
   label?: string;
   onChange?: (value: string) => void;
+  initValue?: string;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "onChange">;
-export const Input = ({ label, onChange, className, ...rest }: Props) => {
+export const Input = ({ initValue = "", label, onChange, className, ...rest }: Props) => {
 
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(initValue);
 
   const handleChange = (newValue: string) => {
     setValue(newValue);

@@ -2,7 +2,8 @@ import { redirect } from "next/navigation";
 import { AuthorizationManager } from "~/utils/AuthorizationManager/index";
 
 type AuthProps = { username: string; password: string };
-type PostInfo = {
+
+export type PostInfo = {
   id: number;
   title: string;
   body: string;
@@ -94,6 +95,17 @@ export class BackendService {
   public static async deletePost({ id }: { id: number }): Promise<boolean> {
     return await this._fetcher(`api/post/delete/${id}`, {
       method: "DELETE",
+    });
+  }
+
+  public static async createPost({
+    body,
+    title,
+    image,
+  }: Omit<PostInfo, "id" | "author">) {
+    return await this._fetcher(`api/post/create`, {
+      method: "POST",
+      body: JSON.stringify({ image, title, body }),
     });
   }
 }

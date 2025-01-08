@@ -27,6 +27,18 @@ public class PostService {
         return postRepository.getByAuthor(author);
     }
 
+    public Post buildPost(String title, String image, String body, String jwt) {
+        String username = jwtService.getUserName(jwt);
+        if (username == null) return null;
+
+        return Post.builder()
+            .title(title)
+            .body(body)
+            .image(image)
+            .author(username)
+            .build();
+    }
+
     public Post create(Post post) {
         return postRepository.save(post);
     }

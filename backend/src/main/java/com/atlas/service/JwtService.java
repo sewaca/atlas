@@ -48,7 +48,7 @@ public class JwtService {
         Date expiresAt = new Date(System.currentTimeMillis() + jwtEpxirationPeriod);
         Map<String, String> claims = new HashMap<>() {{
             put("id", user.getId().toString());
-            put("role", user.getRole().toString());
+            put("role", user.getRole());
             put("username", user.getUsername());
         }};
         return Jwts.builder()
@@ -82,5 +82,14 @@ public class JwtService {
         String username = extractClaim(token, Claims::getSubject);
 
         return userService.findByUsername(username).getRole();
+    }
+
+    public String getUserName (String token) {
+        String username = extractClaim(token, Claims::getSubject);
+        User foundUser = userService.findByUsername(username);
+        if (foundUser == null) {
+            return null;
+        }
+        return username;
     }
 } 
