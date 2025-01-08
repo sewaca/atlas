@@ -11,8 +11,9 @@ export const ClientPart = ({ id, initvalue }: Props) => {
   const userdata = useRef({ content: initvalue });
 
   const handleConfirmation = async () => {
-    const res = await editPostRequest(id, userdata.current.content);
+    const res = (await editPostRequest(id, userdata.current.content)) === true;
     alert(res ? "success" : "fail");
+    if (res) window.location.href = `/post/${id}`;
   };
 
   return (
