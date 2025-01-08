@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ClientAuthorizationManager } from "~/utils/AuthorizationManager/ClientAuthorizationManager";
+import { AuthorizationManager } from "~/utils/AuthorizationManager";
 
 export const LogoutButton = () => {
   const handleClick = async () => {
-    await ClientAuthorizationManager.logout();
+    await AuthorizationManager.logout();
     window.location.reload();
   };
 
