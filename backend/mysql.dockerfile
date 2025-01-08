@@ -1,0 +1,8 @@
+FROM mysql:8.0
+
+ENV MYSQL_DATABASE=atlas-db
+ENV MYSQL_USER=javauser
+ENV MYSQL_PASSWORD=REDACTED_PROD_PASWORD
+ENV MYSQL_ROOT_PASSWORD=REDACTED_PROD_PASWORD
+
+COPY src/main/resources/init.sql /docker-entrypoint-initdb.d/

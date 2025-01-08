@@ -11,11 +11,14 @@ export type PostInfo = {
   author: string;
 };
 
+const BACKEND_HOST = process.env.BACKEND_HOST || "localhost";
+const BACKEND_PORT = process.env.BACKEND_PORT || "5000";
+
 export class BackendService {
   private static async _fetcher(path: string, options?: RequestInit) {
     const authcookie = await AuthorizationManager.getAuthCookie();
 
-    const res = await fetch(`http://localhost:5000/${path}`, {
+    const res = await fetch(`http://${BACKEND_HOST}:${BACKEND_PORT}/${path}`, {
       method: options?.method || "GET",
       body: options?.body,
       credentials: "include",

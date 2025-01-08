@@ -1,0 +1,12 @@
+FROM node:20-alpine
+RUN corepack enable
+
+ADD . /frontend 
+WORKDIR /frontend
+
+RUN npm install --production
+RUN npm run build
+
+EXPOSE 3000
+
+ENTRYPOINT [ "npm", "start" ]

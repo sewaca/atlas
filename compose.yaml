@@ -1,22 +1,37 @@
 version: "3.7"
-services: 
-  database:
-    build: 
-      context: .
-      dockerfile: mysql.dockerfile
+services:
+  frontend:
+    build:
+      context: frontend
+      dockerfile: dockerfile
     restart: always
+    environment:
+      - BACKEND_PORT=5000
+      - BACKEND_HOST=backend
     ports:
-      - 33061:3306
-    volumes:
-      - ./.mysql:/var/lib/mysql
+      - 80:3000
+      - 443:3000
     networks:
       - default
-  java: 
+
+  database:
     build:
-      context: .
+      context: backend
+      dockerfile: mysql.dockerfile
+    restart: always
+    volumes:
+      - .mysql:/var/lib/mysql
+    ports:
+      - 33061:3306
+    networks:
+      - backend
+
+  backend:
+    build:
+      context: backend
       dockerfile: java.dockerfile
     restart: always
-    ports: 
+    ports:
       - 5000:5000
     depends_on:
       - database
@@ -27,9 +42,13 @@ services:
       - MYSQL_USERNAME=root
       - MYSQL_PASSWORD=REDACTED_PROD_PASWORD
       - JWT_KEY=signingkeyshouldbesettedupforaproductionenvironment
-      - HMAC_SALT=REDACTED 
-    networks: 
+      - HMAC_SALT=REDACTED
+    networks:
       - default
+      - backend
+
 networks:
-  default: 
+  default:
     name: general-network
+  backend:
+    name: backend-network
