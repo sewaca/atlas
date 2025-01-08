@@ -77,4 +77,10 @@ public class JwtService {
 
         return userService.findByUsername(username);
     }
+
+    public String getUserRole (String token) {
+        String username = extractClaim(token, Claims::getSubject);
+
+        return userService.findByUsername(username).getRole();
+    }
 } 

@@ -1,12 +1,3 @@
-
-.page {
-    padding: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
 .form {
     display: flex;
     flex-direction: column;
@@ -23,9 +14,18 @@
 }
 
 .registrationToggler {
+    transition: .3s;
     text-underline-offset: 4px;
     text-decoration: underline dashed;
 }
 .registrationToggler:hover{
-    text-decoration: underline dashed #bbbbbb;
+    text-decoration: underline dashed;
+    opacity: .7;
 }   
+
+.pagetop {
+    margin-top: auto;
+}
+.pagebottom {
+    margin-bottom: auto;
+}

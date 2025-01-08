@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import { useRef, useState } from "react";
 import { Spacer } from "~/components/Spacer/Spacer";
 import { Button } from "~/components/Button/Button";
+import { BackendService } from "~/services/BackendService";
 
 export default function Page() {
   const [isRegistration, setIsRegistration] = useState(false);
@@ -15,12 +16,38 @@ export default function Page() {
   });
 
   const handleSubmit = async () => {
-    // TODO: сделать обработку и отправку запроса
-    console.log(userinput.current);
+    // TODO: replace alert with something beautiful
+    const data = userinput.current;
+    if (!data.username.length || !data.password.length)
+      return alert("fill in all required fields");
+
+    if (isRegistration) {
+      if (!data.repeatPassword.length)
+        return alert("fill in all required fields");
+      if (data.password !== data.repeatPassword)
+        return alert("passwords do not match");
+
+      const res = await BackendService.register({
+        username: data.username,
+        password: data.password,
+      });
+      
+      alert(`${res ? "" : "un"}successfull register`);
+      if (res) return (window.location.href = "/");
+    } else {
+      const res = await BackendService.login({
+        username: data.username,
+        password: data.password,
+      });
+      
+      alert(`${res ? "" : "un"}successfull login`);
+      if (res) return (window.location.href = "/");
+    }
   };
 
   return (
-    <div className={styles.page}>
+    <>
+      <div className={styles.pagetop} />
       <form className={styles.form}>
         <Input
           placeholder="username"
@@ -78,6 +105,7 @@ export default function Page() {
           </a>
         </p>
       )}
-    </div>
+      <div className={styles.pagebottom} />
+    </>
   );
 }

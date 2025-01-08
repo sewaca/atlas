@@ -9,8 +9,7 @@ export default async function Page({
   params: Promise<{ name: string }>;
 }) {
   const author = (await params).name;
-  const backend = new BackendService();
-  const data = await backend.getPostsByAuthor({ author });
+  const data = await BackendService.getPostsByAuthor({ author });
 
   return (
     <>

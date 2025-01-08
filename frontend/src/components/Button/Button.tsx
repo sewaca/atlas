@@ -9,17 +9,21 @@ type Props = {
   disabled?: boolean;
   children?: ReactNode;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
-export const Button = (
-  ({ variant = "primary", disabled, children, className, ...rest }: Props) => {
-    return (
-      <button
-        {...rest}
-        className={cx(styles.button, className, styles[variant], {
-          [styles.disabled]: disabled,
-        })}
-      >
-        {children}
-      </button>
-    );
-  }
-);
+export const Button = ({
+  variant = "primary",
+  disabled,
+  children,
+  className,
+  ...rest
+}: Props) => {
+  return (
+    <button
+      {...rest}
+      className={cx(styles.button, className, styles[variant], {
+        [styles.disabled]: disabled,
+      })}
+    >
+      {children}
+    </button>
+  );
+};

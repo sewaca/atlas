@@ -5,3 +5,9 @@
     justify-content: center;
     min-height: 100dvh;
 }
+
+.postActions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

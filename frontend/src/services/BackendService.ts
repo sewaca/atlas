@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
-import { CookieManager } from "../utils/CookieManager";
+import { redirect } from "next/navigation";
+import { AuthorizationManager } from "~/utils/AuthorizationManager/index";
 
 type AuthProps = { username: string; password: string };
 type PostInfo = {
@@ -11,11 +11,10 @@ type PostInfo = {
 };
 
 export class BackendService {
-  private async _fetcher(path: string, options?: RequestInit) {
-    const cookieStore = await cookies();
-    const authcookie = cookieStore.get("authtoken")?.value;
+  private static async _fetcher(path: string, options?: RequestInit) {
+    const authcookie = await AuthorizationManager.getAuthCookie();
 
-    return fetch(`http://localhost:5000/${path}`, {
+    const res = await fetch(`http://localhost:5000/${path}`, {
       method: options?.method || "GET",
       body: options?.body,
       credentials: "include",
@@ -24,50 +23,77 @@ export class BackendService {
         Authorization: authcookie,
         "Content-Type": "application/json",
       } as HeadersInit,
-    }).then((res) => (res.ok ? res.json() : res.status));
-    // TODO: Добавить общий обработчик для 401 ошибок
+    });
+
+    if (res.ok) return await res.json();
+
+    if (res.status === 401) {
+      await AuthorizationManager.logout();
+      redirect("/auth?redirected=true");
+    }
+
+    return res.status;
   }
 
-  public async login({ username, password }: AuthProps) {
-    const res = await this._fetcher("api/auth/login", {
+  public static async login({ username, password }: AuthProps) {
+    const token = await this._fetcher("api/auth/login", {
       method: "POST",
       body: JSON.stringify({ username, password }),
     });
-    if (res.includes("Bearer")) {
-      CookieManager.setCookie("authtoken", res);
+    if (token.includes("Bearer")) {
+      await AuthorizationManager.login(token);
       return true;
     }
     return false;
   }
 
-  public async register({ username, password }: AuthProps) {
-    const res = await this._fetcher("api/auth/register", {
+  public static async register({ username, password }: AuthProps) {
+    const token = await this._fetcher("api/auth/register", {
       method: "POST",
       body: JSON.stringify({ username, password }),
     });
-    if (res.includes("Bearer")) {
-      CookieManager.setCookie("authtoken", res);
+    if (token.includes("Bearer")) {
+      await AuthorizationManager.login(token);
       return true;
     }
     return false;
   }
 
-  public async getPostById({ id }: { id: number }) {
+  public static async getPostById({ id }: { id: number }) {
     const res: PostInfo = await this._fetcher(`api/post/id/${id}`);
     return res;
   }
 
-  public async getPostsByAuthor({ author }: { author: string }) {
+  public static async getPostsByAuthor({ author }: { author: string }) {
     const res: PostInfo[] | number = await this._fetcher(
       `api/post/author/${author}`
     );
     return res;
   }
 
-  public async getPostsPage({ page = 0 }) {
+  public static async getPostsPage({ page = 0 }) {
     const res: PostInfo[] | number = await this._fetcher(
       `api/post/get?page=${page}`
     );
     return res;
+  }
+
+  public static async editPost({
+    body,
+    postId,
+  }: {
+    postId: number;
+    body: string;
+  }) {
+    return await this._fetcher(`api/post/edit/${postId}`, {
+      method: "POST",
+      body: JSON.stringify({ body }),
+    });
+  }
+
+  public static async deletePost({ id }: { id: number }): Promise<boolean> {
+    return await this._fetcher(`api/post/delete/${id}`, {
+      method: "DELETE",
+    });
   }
 }

@@ -4,8 +4,7 @@ import { PostCard } from "~/components/PostCard/PostCard";
 import { Spacer } from "~/components/Spacer/Spacer";
 
 export default async function Home() {
-  const backend = new BackendService();
-  const data = await backend.getPostsPage({});
+  const data = await BackendService.getPostsPage({});
   const posts = Array.isArray(data) ? data : [];
 
   if (typeof data === "number") {

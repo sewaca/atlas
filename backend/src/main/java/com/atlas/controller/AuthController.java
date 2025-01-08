@@ -38,7 +38,7 @@ public class AuthController {
             return "not found";
         }
         
-        return Headers.BEARER+jwtService.issueToken(userService.findByUsername(request.getUsername()));
+        return "\""+Headers.BEARER+jwtService.issueToken(userService.findByUsername(request.getUsername()))+"\"";
     }
 
     @PostMapping("/register")
@@ -50,6 +50,6 @@ public class AuthController {
             return "user exists";
         }
         
-        return Headers.BEARER+jwtService.issueToken(created);
+        return "\""+Headers.BEARER+jwtService.issueToken(created)+"\"";
     }
 }
