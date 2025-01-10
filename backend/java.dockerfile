@@ -10,6 +10,7 @@ RUN ./mvnw package -DskipTests
 
 # entrypoint.sh is used to wait until database is ready to get connections
 COPY ./entrypoint.sh /usr/bin/entrypoint.sh
+RUN sed -i 's/\r$//' /usr/bin/entrypoint.sh
 RUN apt-get update -q -y && apt-get install -q -y netcat
 
 # backend server port:
