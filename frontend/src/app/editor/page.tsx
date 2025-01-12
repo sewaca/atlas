@@ -41,8 +41,7 @@ export default function Page() {
   const handleSubmit = async () => {
     if (
       !userdata.current.body ||
-      !userdata.current.title ||
-      !userdata.current.image
+      !userdata.current.title
     ) {
       return alert("fill up all neccessary fields!");
     }
@@ -50,7 +49,7 @@ export default function Page() {
     const res = await createPostAction({
       body: userdata.current.body,
       title: userdata.current.title,
-      image: userdata.current.image,
+      image: userdata.current.image || "",
     });
 
     console.log(res);
@@ -71,7 +70,6 @@ export default function Page() {
         className={cx(styles.input, styles.fileinput)}
         onChange={handleChangeImage}
         label="Post preview image: "
-        required
         accept="image/*"
       />
       <Spacer size={12} />

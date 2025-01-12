@@ -16,6 +16,9 @@ public class PostService {
     private PostRepository postRepository;
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private ImageGeneratorService imageGeneratorService;
+
     private final int perpage = 12;
 
     public Post findById(int id) {
@@ -40,6 +43,12 @@ public class PostService {
     }
 
     public Post create(Post post) {
+        if (post.getImage().isEmpty()) {
+            String generatedImage = imageGeneratorService.generateImageUrl("generate avatar for post with title "+post.getTitle());
+            if (generatedImage != null) {
+                post.setImage(generatedImage);
+            }
+        }
         return postRepository.save(post);
     }
 
